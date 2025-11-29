@@ -52,9 +52,21 @@ func Ok(w http.ResponseWriter, data interface{}) {
 
 func Error(w http.ResponseWriter, code int, message string) {
 	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(code)
+
 	if message == "" {
 		message = getMessage(code)
 	}
 	utils.ShowErrorLogs(fmt.Errorf("Error code: %d, meg: %s", code, message))
-	http.Error(w, message, code)
+
+	apiResp := apiResponse{
+		Code:    code,
+		Message: getMessage(code),
+		Data:    nil,
+	}
+
+	if err := json.NewEncoder(w).Encode(apiResp); err != nil {
+		utils.ShowErrorLogs(fmt.Errorf("Error encoding response: %v", err))
+		http.Error(w, getMessage(http.StatusInternalServerError), http.StatusInternalServerError)
+	}
 }

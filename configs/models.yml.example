@@ -1,0 +1,9 @@
+models:
+  gemini:
+    enable: true
+    model-name: "googleai/gemini-2.5-flash"
+    apikey: "api_key"
+  ollama:
+    enable: false
+    model-name: "gemini-2.5-flash"
+    server-address: "http://localhost:11434"

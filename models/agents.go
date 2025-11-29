@@ -5,6 +5,6 @@ type ChatRequest struct {
 }
 
 type ChatResponse struct {
-	Answer   string `json:"answer"`
-	SQLQuery string `json:"sql_query,omitempty"`
+	Answer     string `json:"answer"`
+	TotalToken int    `json:"total_token,omitempty"`
 }

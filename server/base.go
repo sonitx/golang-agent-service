@@ -3,9 +3,11 @@ package server
 import (
 	"fmt"
 	"main/handlers"
+	"main/services"
 	"main/utils"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/go-chi/chi/v5"
@@ -18,7 +20,8 @@ var (
 )
 
 type apiServer struct {
-	baseHandler *handlers.BaseHandler
+	baseHandler  *handlers.BaseHandler
+	agentHandler *handlers.AgentHandler
 }
 
 func initConfig() (*utils.Config, error) {
@@ -30,7 +33,13 @@ func initConfig() (*utils.Config, error) {
 	}
 
 	for _, fileInfo := range dir {
-		file, err := os.Open(fmt.Sprintf("%s/%s", configPath, fileInfo.Name()))
+		fileName := fileInfo.Name()
+		if !strings.HasSuffix(fileName, ".yml") {
+			continue
+		}
+
+		utils.ShowInfoLogs("Loading config: %s", fileName)
+		file, err := os.Open(fmt.Sprintf("%s/%s", configPath, fileName))
 		if err != nil {
 			return nil, err
 		}
@@ -55,11 +64,16 @@ func Initialize() *apiServer {
 		panic(err)
 	}
 
+	// service
+	agentSvc := services.NewAgentService()
+
 	// handler
 	baseHandler := handlers.NewBaseHandler()
+	agentHandler := handlers.NewAgentHandler(agentSvc)
 
 	return &apiServer{
-		baseHandler: baseHandler,
+		baseHandler:  baseHandler,
+		agentHandler: agentHandler,
 	}
 }
 

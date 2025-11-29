@@ -1,0 +1,5 @@
+agents:
+- name: "Agent search web"
+  key: "agent_search_web"
+  enable: true
+  description: "Agent search web"
