@@ -43,3 +43,8 @@ func (h *AgentHandler) GenerateResponse(w http.ResponseWriter, r *http.Request) 
 
 	api.Ok(w, agentResp)
 }
+
+func (h *AgentHandler) ListAgents(w http.ResponseWriter, r *http.Request) {
+	infos := h.agentSvc.ListAgentInfos()
+	api.Ok(w, infos)
+}

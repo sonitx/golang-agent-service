@@ -12,16 +12,28 @@ import (
 	"github.com/firebase/genkit/go/plugins/ollama"
 )
 
-func GenerateResponse(ctx context.Context, prompt string) (*models.ChatResponse, error) {
+func GenerateResponse(ctx context.Context, prompt string, tools []models.AITool) (*models.ChatResponse, error) {
 	g, modelName := getModel(ctx, utils.AppConfig.ModelConfig)
 	if g == nil {
 		return nil, errors.New("model not found")
 	}
 
-	response, err := genkit.Generate(ctx, g,
+	opts := []ai.GenerateOption{
 		ai.WithPrompt(prompt),
 		ai.WithModelName(modelName),
-	)
+	}
+
+	// define tools
+	toolsRef := make([]ai.ToolRef, len(tools))
+	for i, item := range tools {
+		toolsRef[i] = genkit.DefineTool(g, item.Name, item.Description, item.Function)
+	}
+
+	if len(toolsRef) > 0 {
+		opts = append(opts, ai.WithTools(toolsRef...))
+	}
+
+	response, err := genkit.Generate(ctx, g, opts...)
 	if err != nil {
 		utils.ShowErrorLogs(err)
 		return nil, err

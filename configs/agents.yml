@@ -3,3 +3,8 @@ agents:
   key: "agent_search_web"
   enable: true
   description: "Agent search web"
+
+- name: "Agent sale"
+  key: "agent_sale"
+  enable: true
+  description: "Agent sale"
