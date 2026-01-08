@@ -7,5 +7,5 @@ import (
 
 type AgentInterface interface {
 	GenerateResponse(ctx context.Context, prompt string) (*models.ChatResponse, error)
-	Tools() []models.AITool
+	Tools(inputData any) []models.AITool
 }

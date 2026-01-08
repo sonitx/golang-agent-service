@@ -16,11 +16,11 @@ func NewSaleAgent() agents.AgentInterface {
 
 // GenerateResponse implements agents.AgentInterface.
 func (s *SaleAgent) GenerateResponse(ctx context.Context, prompt string) (*models.ChatResponse, error) {
-	return agents.GenerateResponse(ctx, prompt, s.Tools())
+	return agents.GenerateResponse(ctx, prompt, nil)
 }
 
 // Tools implements agents.AgentInterface.
-func (s *SaleAgent) Tools() []models.AITool {
+func (s *SaleAgent) Tools(inputData any) []models.AITool {
 	productsTool, err := tools.NewProductTool().GetListProducts()
 	cartsTool, err := tools.NewCartsTool().GetListCarts()
 

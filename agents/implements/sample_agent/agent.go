@@ -17,10 +17,10 @@ func NewSampleAgent() agents.AgentInterface {
 // GenerateResponse implements agents.AgentInterface.
 func (s *SampleAgent) GenerateResponse(ctx context.Context, prompt string) (*models.ChatResponse, error) {
 	fullPrompt := fmt.Sprintf(instruction, prompt)
-	return agents.GenerateResponse(ctx, fullPrompt, s.Tools())
+	return agents.GenerateResponse(ctx, fullPrompt, s.Tools(nil))
 }
 
 // Tools implements agents.AgentInterface.
-func (s *SampleAgent) Tools() []models.AITool {
+func (s *SampleAgent) Tools(inputData any) []models.AITool {
 	return []models.AITool{}
 }

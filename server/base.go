@@ -3,6 +3,8 @@ package server
 import (
 	"fmt"
 	"main/handlers"
+	"main/pkg"
+	"main/repositories"
 	"main/services"
 	"main/utils"
 	"net/http"
@@ -65,8 +67,15 @@ func Initialize() *apiServer {
 		panic(err)
 	}
 
+	// Init database postgres
+	pgDatabase := pkg.NewPgDatabase()
+	db := pgDatabase.ConnectPgDatabase(utils.AppConfig.PostgresConfig)
+
+	// repositories
+	sessionStatusRepo := repositories.NewSessionStatusRepository(db)
+
 	// service
-	agentSvc := services.NewAgentService()
+	agentSvc := services.NewAgentService(sessionStatusRepo)
 
 	// handler
 	baseHandler := handlers.NewBaseHandler()

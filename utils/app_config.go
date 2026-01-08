@@ -7,8 +7,9 @@ type Config struct {
 		Port int    `yaml:"port"`
 		Mode string `yaml:"mode"`
 	} `yaml:"server"`
-	ModelConfig ModelConfig `yaml:"models"`
-	AgentConfig []AgentItem `yaml:"agents"`
+	ModelConfig    ModelConfig  `yaml:"models"`
+	AgentConfig    []AgentItem  `yaml:"agents"`
+	PostgresConfig PostgresConf `yaml:"postgres"`
 }
 
 type ModelConfig struct {
@@ -29,4 +30,16 @@ type AgentItem struct {
 	Key         string `yaml:"key"`
 	Name        string `yaml:"name"`
 	Description string `yaml:"description"`
+}
+
+type PostgresConf struct {
+	Enable      bool   `yaml:"enable"`
+	Host        string `yaml:"host"`
+	Port        int    `yaml:"port"`
+	User        string `yaml:"user"`
+	Password    string `yaml:"password"`
+	Database    string `yaml:"database"`
+	SslMode     string `yaml:"sslmode"`
+	MaxIdleConn int    `yaml:"max-idle-conn"`
+	MaxOpenConn int    `yaml:"max-open-conn"`
 }

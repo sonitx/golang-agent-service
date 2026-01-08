@@ -1,3 +1,13 @@
 server:
   mode: dev
   port: 8080
+postgres:
+  enable: false
+  host: localhost
+  port: 5432
+  user: hungson
+  password: 1111
+  database: hungson
+  sslmode: disable
+  max-idle-conn: 2
+  max-open-conn: 10

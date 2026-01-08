@@ -19,11 +19,11 @@ func NewAgentSearchWeb() agents.AgentInterface {
 
 // GenerateResponse implements agents.AgentInterface.
 func (a *AgentSearchWeb) GenerateResponse(ctx context.Context, prompt string) (*models.ChatResponse, error) {
-	return agents.GenerateResponse(ctx, prompt, a.Tools())
+	return agents.GenerateResponse(ctx, prompt, a.Tools(nil))
 }
 
 // Tools implements agents.AgentInterface.
-func (a *AgentSearchWeb) Tools() []models.AITool {
+func (a *AgentSearchWeb) Tools(inputData any) []models.AITool {
 	return []models.AITool{
 		a.searchGoogleTool(),
 	}

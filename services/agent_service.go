@@ -6,14 +6,20 @@ import (
 	"main/agents"
 	"main/agents/cores"
 	"main/agents/implements"
+	"main/agents/implements/spvai"
 	"main/models"
+	"main/repositories"
 	"main/utils"
 )
 
-type AgentService struct{}
+type AgentService struct {
+	sessionStatusRepo *repositories.SessionStatusRepository
+}
 
-func NewAgentService() *AgentService {
-	return &AgentService{}
+func NewAgentService(sessionStatusRepo *repositories.SessionStatusRepository) *AgentService {
+	return &AgentService{
+		sessionStatusRepo: sessionStatusRepo,
+	}
 }
 
 func (s *AgentService) initAgent() map[string]agents.AgentInterface {
@@ -22,6 +28,7 @@ func (s *AgentService) initAgent() map[string]agents.AgentInterface {
 	// AI AUTO GENERATED
 	mapAgent["agent_search_web"] = cores.NewAgentSearchWeb()
 	mapAgent["agent_sale"] = implements.NewSaleAgent()
+	mapAgent["agent_spvai"] = spvai.NewSPVAIAgent(s.sessionStatusRepo)
 	// END AI AUTO GENERATED
 
 	return mapAgent

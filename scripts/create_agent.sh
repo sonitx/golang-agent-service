@@ -83,7 +83,7 @@ echo "Updated initAgent mapping in $SERVICE_FILE"
 
 # Update the package comment if needed (optional)
 
-echo "Created implementation file $DEST"
+echo "Created implementation folder $DEST_DIR"
 
 # ---------------------------------------------------------------------------
 # 4. Add the mapping in services/agent_service.go (initAgent function)
