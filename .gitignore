@@ -1,3 +1,4 @@
 .vscode
 
 configs/models.yml
+configs/agentics.yml

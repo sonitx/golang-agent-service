@@ -10,6 +10,7 @@ type Config struct {
 	ModelConfig    ModelConfig  `yaml:"models"`
 	AgentConfig    []AgentItem  `yaml:"agents"`
 	PostgresConfig PostgresConf `yaml:"postgres"`
+	AgenticNodes   AgenticNodes `yaml:"agentic-nodes"`
 }
 
 type ModelConfig struct {
@@ -42,4 +43,17 @@ type PostgresConf struct {
 	SslMode     string `yaml:"sslmode"`
 	MaxIdleConn int    `yaml:"max-idle-conn"`
 	MaxOpenConn int    `yaml:"max-open-conn"`
+}
+
+type AgenticNodes struct {
+	Router AgenticModel `yaml:"router"`
+	Direct AgenticModel `yaml:"direct"`
+	Logic  AgenticModel `yaml:"logic"`
+	RAG    AgenticModel `yaml:"rag"`
+}
+
+type AgenticModel struct {
+	ModelType string `yaml:"model-type"`
+	ModelName string `yaml:"model-name"`
+	APIKey    string `yaml:"api-key"`
 }

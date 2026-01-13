@@ -5,7 +5,7 @@ import (
 	"errors"
 	"main/agents"
 	"main/agents/cores"
-	"main/agents/implements"
+	implements "main/agents/implements/sale_agent"
 	"main/agents/implements/spvai"
 	"main/models"
 	"main/repositories"
